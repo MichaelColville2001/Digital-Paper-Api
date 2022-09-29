@@ -107,9 +107,9 @@ def add_user():
     post_data = request.get_json()
     email = post_data.get("email")
     password = post_data.get("password")
-    possible_dup = db.session.query(User).filter(User.email == email).first()
-    if possible_dup is not None:
-        return jsonify('Username Exists')
+    #possible_dup = db.session.query(User).filter(User.email == email).first()
+    #if possible_dup is not None:
+    #    return jsonify('Username Exists')
 
     encrypted_password = bcrypt.generate_password_hash(password).decode('utf-8')
     new_user = User(email, encrypted_password)
