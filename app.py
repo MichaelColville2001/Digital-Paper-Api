@@ -97,11 +97,11 @@ many_user_schema = UserSchema(many=True)
 
 @app.route('/user/add',methods=['POST'])
 def add_user():
-    if request.content_type != "application/json;charset=UTF-8":
+    if request.content_type != "application/json":
         return jsonify("Error Adding User Enter AS type JSON!")
     post_data = request.get_json()
-    email = post_data["user"]["email"]
-    password = post_data["user"]["password"]
+    email = post_data.get("email")
+    password = post_data.get("password")
     possible_dup = db.session.query(User).filter(User.email == email).first()
     if possible_dup is not None:
         return jsonify('Username Exists')
