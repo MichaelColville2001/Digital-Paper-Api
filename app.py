@@ -97,7 +97,7 @@ many_user_schema = UserSchema(many=True)
 
 @app.route('/user/add',methods=['POST'])
 def add_user():
-    if request.content_type != "application/json":
+    if request.content_type != "application/json;charset=UTF-8":
         return jsonify("Error Adding User Enter AS type JSON!")
     post_data = request.get_json()
     email = post_data["user"]["email"]
@@ -115,7 +115,7 @@ def add_user():
 
 @app.route('/user/verify', methods=["POST"])
 def verification():
-    if request.content_type != 'application/json':
+    if request.content_type != 'application/json;charset=UTF-8':
         return jsonify("JSON!")
     
     post_data = request.get_json()
@@ -133,7 +133,7 @@ def verification():
 
 @app.route('/user/resetpass/<id>', methods=["PUT"])
 def update_password(id):
-    if request.content_type != "application/json":
+    if request.content_type != "application/json;charset=UTF-8":
         return jsonify("JSON!")
     
     put_data = request.get_json()
