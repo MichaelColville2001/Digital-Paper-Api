@@ -95,6 +95,11 @@ class UserSchema(ma.Schema):
 user_schema = UserSchema()
 many_user_schema = UserSchema(many=True)
 
+@app.route("/user/get", methods=["GET"])
+def get_all_users():
+    all_users = db.session.query(User).all()
+    return jsonify(many_user_schema.dump(all_users))
+
 @app.route('/user/add',methods=['POST'])
 def add_user():
     if request.content_type != "application/json":
