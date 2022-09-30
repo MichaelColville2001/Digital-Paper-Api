@@ -102,14 +102,14 @@ def get_all_users():
 
 @app.route('/user/add',methods=['POST'])
 def add_user():
-    if request.content_type != "application/json":
+    if request.content_type != "application/json;charset=UTF-8":
         return jsonify("Error Adding User Enter AS type JSON!")
     post_data = request.get_json()
-    email = post_data.get("email")
-    password = post_data.get("password")
-    #possible_dup = db.session.query(User).filter(User.email == email).first()
-    #if possible_dup is not None:
-    #    return jsonify('Username Exists')
+    email = post_data["user"]["email"]
+    password = post_data["user"]["password"]
+    possible_dup = db.session.query(User).filter(User.email == email).first()
+    if possible_dup is not None:
+        return jsonify('Username Exists')
 
     encrypted_password = bcrypt.generate_password_hash(password).decode('utf-8')
     new_user = User(email, encrypted_password)
