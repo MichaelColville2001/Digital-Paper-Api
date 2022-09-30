@@ -3,12 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
-import os
+# import os
 
 app = Flask(__name__)
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.sqlite')
+# basedir = os.path.abspath(os.path.dirname(__file__))
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ahdaztctptewca:ef47138d3f73411afc5a975d32641eb7429b6dfc39fca82227a88b9c9098ffe8@ec2-44-209-158-64.compute-1.amazonaws.com:5432/ddd71l2ndds216"
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 bcrypt = Bcrypt(app)
@@ -93,11 +94,6 @@ class UserSchema(ma.Schema):
 
 user_schema = UserSchema()
 many_user_schema = UserSchema(many=True)
-
-@app.route("/user/get", methods=["GET"])
-def get_all_users():
-    all_users = db.session.query(User).all()
-    return jsonify(many_user_schema.dump(all_users))
 
 @app.route('/user/add',methods=['POST'])
 def add_user():
