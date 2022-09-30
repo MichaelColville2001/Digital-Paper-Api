@@ -79,7 +79,7 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64),nullable=False, unique=True)
-    password = db.Column(db.String(32), nullable=False)
+    password = db.Column(db.String, nullable=False)
     files = db.relationship('File',backref="user",cascade="all,delete,delete-orphan")
     
 
